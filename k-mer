@@ -1,0 +1,27 @@
+#k-mer
+from collections import Counter
+import numpy as np
+
+def kmer_profile(seqs, k=6):
+    kmers = Counter()
+    for seq in seqs:
+        for i in range(len(seq) - k + 1):
+            kmer = seq[i:i+k]
+            kmers[kmer] += 1
+    return kmers
+
+def normalize_counter(counter, all_keys):
+    return np.array([counter.get(k, 0) for k in all_keys])
+
+# K-mer profiles
+wt_kmers = kmer_profile(reads_wt, k=6)
+mut1_kmers = kmer_profile(reads_mut1, k=6)
+mut2_kmers = kmer_profile(reads_mut2, k=6)
+
+# All unique k-mers
+all_kmers = set(wt_kmers) | set(mut1_kmers) | set(mut2_kmers)
+
+# Vectors
+wt_vec = normalize_counter(wt_kmers, all_kmers)
+mut1_vec = normalize_counter(mut1_kmers, all_kmers)
+mut2_vec = normalize_counter(mut2_kmers, all_kmers)
