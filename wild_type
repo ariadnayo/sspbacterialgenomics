@@ -1,0 +1,37 @@
+#Wild Type
+file_path_fasta = '/content/WT.fasta'
+for sequence in SeqIO.parse('/content/WT.fasta', "fasta"):
+    print(len(sequence))
+
+def extract_reads(file, max_reads=1000, format="fasta-pearson"):  #используем fasta-pearson
+    reads = []
+    for i, record in enumerate(SeqIO.parse(file, format)):
+        reads.append(str(record.seq))
+        if i == max_reads:
+            break
+    return reads
+reads_wt = extract_reads('/content/WT.fasta')
+
+#Fixing WT
+reads_wt = extract_reads('/content/WT.fasta', max_reads=1000, format="fasta")
+for record in SeqIO.parse("/content/WT.fasta", "fasta"):
+    print(record.id)
+    print(record.description)
+    print(len(record.seq))
+    from Bio import SeqIO
+
+def break_long_seq_into_reads(file, read_length=150, max_reads=1000):
+    reads = []
+    for record in SeqIO.parse(file, "fasta"):
+        seq = str(record.seq)
+        for i in range(0, len(seq) - read_length + 1, read_length):
+            reads.append(seq[i:i+read_length])
+            if len(reads) >= max_reads:
+                return reads
+    return reads
+
+reads_wt = break_long_seq_into_reads('/content/WT.fasta')
+print(len(reads_wt))  # must be 1000
+
+#Checking
+print(len(reads_wt), len(reads_mut1), len(reads_mut2))
