@@ -1,0 +1,10 @@
+#cosine distance
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+
+from scipy.spatial.distance import cosine
+
+d_mut1 = cosine(wt_vec, mut1_vec)
+d_mut2 = cosine(wt_vec, mut2_vec)
+print(f"Cosine distance between wild type and mutant 1: {d_mut1}")
+print(f"Cosine distance between wild type and mutant 2: {d_mut2}")
