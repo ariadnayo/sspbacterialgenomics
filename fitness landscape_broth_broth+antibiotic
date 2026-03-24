@@ -1,0 +1,64 @@
+import pandas as pd
+
+# Load dataset
+file_path_xlsx = '/content/OD.xlsx'
+df = pd.read_excel(file_path_xlsx, sheet_name="Data", header=None)
+
+# Assign column names
+df.columns = ["Sample", "AUC"]
+
+# Preview the data
+print(df.head())
+
+from scipy.spatial.distance import cosine
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+# Assuming fitness_broth and fitness_antibiotic dictionaries and mut1_vec, mut2_vec, wt_vec are already defined
+
+# Calculate genetic distance from WT (WT is the 0 point)
+genetic_distance_from_wt = {
+    "WT": 0.0,
+    "Mut1": cosine(wt_vec, mut1_vec),
+    "Mut2": cosine(wt_vec, mut2_vec)
+}
+
+print("Genetic Distance from WT (cosine):", genetic_distance_from_wt)
+
+# Calculate average fitness (AUC) for each group
+fitness_broth = {
+    "WT": df.loc[df['Sample'].isin(['1A', '1B', '1C']), 'AUC'].mean(),
+    "Mut1": df.loc[df['Sample'].isin(['2A', '2B', '2C']), 'AUC'].mean(),
+    "Mut2": df.loc[df['Sample'].isin(['3A', '3B', '3C']), 'AUC'].mean()
+}
+
+fitness_antibiotic = {
+    "WT": df.loc[df['Sample'].isin(['5A', '6A', '7A']), 'AUC'].mean(),
+    "Mut1": df.loc[df['Sample'].isin(['5B', '6B', '7B']), 'AUC'].mean(),
+    "Mut2": df.loc[df['Sample'].isin(['5C', '6C', '7C']), 'AUC'].mean()
+}
+
+
+# Function to plot fitness landscape with WT as 0 point
+def plot_fitness_landscape_from_wt(fitness, genetic_distance, condition):
+    x = [genetic_distance["WT"], genetic_distance["Mut1"], genetic_distance["Mut2"]]
+    y = [fitness["WT"], fitness["Mut1"], fitness["Mut2"]]
+    labels = ["WT", "Mut1", "Mut2"]
+
+    plt.figure(figsize=(8, 6))
+    plt.plot(x, y, 'o-', color='slateblue')
+    for i in range(3):
+        # Adjust text position based on the label and condition if needed, or a general offset
+        plt.text(x[i] + 0.001, y[i] + 0.5, labels[i], fontsize=12) # Adjusted text position again
+
+    plt.xlabel("Genetic Distance from WT (cosine)")
+    plt.ylabel("Average Fitness (AUC)")
+    plt.title(f"Fitness Landscape from WT ({condition})")
+    plt.grid(True)
+    plt.show()
+
+# Plot for Broth only
+plot_fitness_landscape_from_wt(fitness_broth, genetic_distance_from_wt, "Broth only")
+
+# Plot for Broth + Antibiotic
+plot_fitness_landscape_from_wt(fitness_antibiotic, genetic_distance_from_wt, "Broth + Antibiotic")
