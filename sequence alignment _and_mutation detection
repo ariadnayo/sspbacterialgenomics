@@ -1,0 +1,29 @@
+from Bio.Align import PairwiseAligner
+
+def align_and_get_mutations(wt_seq, mut_seq):
+    aligner = PairwiseAligner()
+    aligner.match_score = 2
+    aligner.mismatch_score = -1
+    aligner.open_gap_score = -2
+    aligner.extend_gap_score = -0.5
+    # The align method can return multiple alignments, we'll take the first one
+    alignments = aligner.align(wt_seq, mut_seq)
+    if not alignments:
+        return [] # Return empty list if no alignments found
+
+    alignment = alignments[0]
+
+    # Access aligned sequences correctly using the sequences attribute
+    aligned_wt = alignment.sequences[0]
+    aligned_mut = alignment.sequences[1]
+
+    mutations = []
+    # Iterate through the aligned sequences to find differences
+    for i, (w, m) in enumerate(zip(aligned_wt, aligned_mut)):
+        if w != m and w != '-' and m != '-':
+            # Store mutation as (position in alignment, ref base, alt base)
+            mutations.append((i, w, m))
+        # Note: Insertions and deletions (indels) are represented by '-'
+        # If you want to capture indels, you would add conditions for w == '-' or m == '-'
+    return mutations
+
