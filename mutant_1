@@ -1,0 +1,17 @@
+#Mutant1
+file_path_fastq = '/content/Mut1.fastq'
+for sequence in SeqIO.parse('/content/Mut1.fastq', "fastq"):
+    print(len(sequence))
+
+def break_long_seq_into_reads(file, read_length=150, max_reads=1000):
+    reads = []
+    for record in SeqIO.parse(file, "fastq"):
+        seq = str(record.seq)
+        for i in range(0, len(seq) - read_length + 1, read_length):
+            reads.append(seq[i:i+read_length])
+            if len(reads) >= max_reads:
+                return reads
+    return reads
+
+reads_mut1 = break_long_seq_into_reads('/content/Mut1.fastq')
+print(len(reads_mut1))
