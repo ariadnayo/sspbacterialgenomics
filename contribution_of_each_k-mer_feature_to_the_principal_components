@@ -1,0 +1,73 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+from sklearn.decomposition import PCA
+from collections import Counter
+
+# Re-define the kmer_profile and normalize_counter functions if they are not available in the current session
+# In this case, they are defined in a previous cell (7xBY7Q5_DFkd), so we can use them directly.
+# If they weren't, we'd need to include their definitions here.
+
+# Use the previously extracted reads
+# reads_wt, reads_mut1, and reads_mut2 are already available in the notebook's memory
+
+# Calculate K-mer profiles for the reads
+wt_kmers = kmer_profile(reads_wt, k=6)
+mut1_kmers = kmer_profile(reads_mut1, k=6)
+mut2_kmers = kmer_profile(reads_mut2, k=6)
+
+# Get all unique k-mers
+all_kmers = list(set(wt_kmers) | set(mut1_kmers) | set(mut2_kmers))
+
+# Normalize k-mer counts into vectors
+wt_vec = normalize_counter(wt_kmers, all_kmers)
+mut1_vec = normalize_counter(mut1_kmers, all_kmers)
+mut2_vec = normalize_counter(mut2_kmers, all_kmers)
+
+
+# Combine the k-mer vectors into a single array
+X = np.array([wt_vec, mut1_vec, mut2_vec])
+
+# Initialize and fit PCA
+# We'll reduce the data to 3 principal components for visualization
+pca = PCA(n_components=3)
+reduced = pca.fit_transform(X)
+
+# Separate the reduced data back into groups
+# Since X has only 3 rows (one for each group's aggregated k-mer vector),
+# reduced[0] is WT, reduced[1] is Mut1, and reduced[2] is Mut2
+reduced_wt = reduced[0:1]
+reduced_mut1 = reduced[1:2]
+reduced_mut2 = reduced[2:]
+
+
+# Plot
+fig = plt.figure(figsize=(10, 8))
+ax = fig.add_subplot(111, projection='3d')
+
+# Plotting the single point for each group's aggregated k-mer vector
+# Swapping WT and Mutant 2 for visualization as requested
+# Plot Mutant 2 data with WT color and label, and WT data with Mutant 2 color and label
+ax.scatter(reduced_mut2[:, 0], reduced_mut2[:, 1], reduced_mut2[:, 2], c='blue', s=100, label='WT') # Plot Mutant 2 data with blue color and WT label
+ax.scatter(reduced_mut1[:, 0], reduced_mut1[:, 1], reduced_mut1[:, 2], c='green', s=100, label='Mutant 1') # Plot Mutant 1 data with green color and label
+ax.scatter(reduced_wt[:, 0], reduced_wt[:, 1], reduced_wt[:, 2], c='red', s=100, label='Mutant 2') # Plot WT data with red color and Mutant 2 label
+
+
+# Add labels for each point - need to swap the labels for WT and Mutant 2
+labels = ["WT", "Mutant 1", "Mutant 2"]
+x_coords = [reduced_wt[:, 0], reduced_mut1[:, 0], reduced_mut2[:, 0]]
+y_coords = [reduced_wt[:, 1], reduced_mut1[:, 1], reduced_mut2[:, 1]]
+z_coords = [reduced_wt[:, 2], reduced_mut1[:, 2], reduced_mut2[:, 2]]
+
+# Plot text labels at the correct original positions with swapped labels for WT and Mut2
+ax.text(x_coords[0][0], y_coords[0][0], z_coords[0][0], labels[2], size=12, zorder=1, color='k') # Mutant 2 label at WT position
+ax.text(x_coords[1][0], y_coords[1][0], z_coords[1][0], labels[1], size=12, zorder=1, color='k') # Mutant 1 label at Mutant 1 position
+ax.text(x_coords[2][0], y_coords[2][0], z_coords[2][0], labels[0], size=12, zorder=1, color='k') # WT label at Mutant 2 position
+
+
+ax.set_title("3D PCA of K-mer Frequency Vectors (Aggregated)")
+ax.set_xlabel("PC1")
+ax.set_ylabel("PC2")
+ax.set_zlabel("PC3")
+ax.legend()
+plt.show()
