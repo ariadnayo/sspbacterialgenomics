@@ -1,0 +1,39 @@
+!pip install biopython
+!pip install pandas
+!pip install numpy
+!pip install matplotlib
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.optimize import curve_fit
+from scipy.stats import ttest_ind
+!pipinstall scikit-learn
+!pip install scipy
+!pip install seaborn
+!pip install plotly
+!pip intstall scikit-bio tqdm
+!pip install Biopython
+!pip install --upgrade biopython
+import Bio
+from Bio import SeqIO
+!pip install pingouin
+!pip install python-docx
+
+import math
+import os
+import itertools
+import matplotlib.pyplot as plt
+import matplotlib.lines as mlines
+import numpy as np
+import pandas as pd
+import random
+import seaborn as sns
+import scipy.stats as stats
+import statsmodels.api as sm
+import warnings
+
+#Downloading OD dataset
+file_path_xlsx = '/content/OD.xlsx'
+df = pd.read_excel(file_path_xlsx, sheet_name="Data")
+print(df.head())
