@@ -1,0 +1,23 @@
+# Assuming reads_wt, reads_mut1, and reads_mut2 are already available
+
+# Align the first read of Mut1 with the first read of WT
+mutations_mut1_vs_wt = align_and_get_mutations(reads_wt[0], reads_mut1[0])
+
+print("Mutations found between the first WT read and the first Mutant 1 read:")
+if mutations_mut1_vs_wt:
+    for pos, ref, alt in mutations_mut1_vs_wt:
+        print(f"Position: {pos}, Reference: {ref}, Alternate: {alt}")
+else:
+    print("No mutations found in this alignment.")
+
+print("-" * 30)
+
+# Align the first read of Mut2 with the first read of WT
+mutations_mut2_vs_wt = align_and_get_mutations(reads_wt[0], reads_mut2[0])
+
+print("Mutations found between the first WT read and the first Mutant 2 read:")
+if mutations_mut2_vs_wt:
+    for pos, ref, alt in mutations_mut2_vs_wt:
+        print(f"Position: {pos}, Reference: {ref}, Alternate: {alt}")
+else:
+    print("No mutations found in this alignment.")
