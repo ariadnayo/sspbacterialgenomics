@@ -1,4 +1,19 @@
 # Erythromycin-Resistance-Dynamics
-Antibiotic resistance has been named as an escalating global concern, and understanding the rapid evolutionary responses of bacteria to antibiotic stress is critical for developing more effective treatment strategies. In this study, we explore the evolutionary trajectory of Vibrio Natriegens under continuous pressure of the macrolide antibiotic Erythromycin. Our objective is to investigate whether V. natriegens can develop resistance to Erythromycin through mutations in the msrA gene. Using a chemostat system, we maintained controlled conditions while applying a gradual increase in Erythromycin concentration on our bacterial cultures. The antibiotic was added incrementally, doubling in concentration until it reached an Optical Density (OD) threshold of 0.3. Throughout the experiment we collected samples from the experimental vials and sent them to Plasmidsaurus to be sequenced. Upon receiving the sequencing data, we conducted a comparative analysis between the mutant and wild-type genomes to identify genetic variations. Although no mutations were identified in the msrA gene, we detected alterations in the atpD gene and in a gene encoding an XRE family transcriptional regulator, which may be linked to alternative macrolide resistance mechanisms. These genetic changes were also associated with a measurable reduction in bacterial fitness.
-These findings provide a deeper understanding of the molecular mechanisms driving resistance development and may contribute to optimizing antibiotic usage protocols and minimizing resistance emergence.
+Background
+Antibiotic resistance is an escalating global concern. Understanding the rapid evolutionary responses of bacteria to antibiotic stress is critical for developing effective treatment strategies and minimizing resistance emergence.
 
+Objective
+This study explores the evolutionary trajectory of Vibrio natriegens under continuous pressure from the macrolide antibiotic Erythromycin. We specifically investigated whether resistance would develop through mutations in the msrA gene.
+
+Methodology
+- System: Utilized a chemostat system to maintain controlled environmental conditions.
+- Pressure: Applied a gradual, doubling increase in Erythromycin concentration until reaching an Optical Density (OD) threshold of 0.3.
+- Sequencing: Samples were processed via Plasmidsaurus for comparative genomic analysis between mutant and wild-type strains.
+
+Key Findings
+- Genetic Divergence: No mutations were identified in the targeted msrA gene.
+- Alternative Pathways: Significant alterations were detected in the atpD gene and a gene encoding an XRE family transcriptional regulator.
+- Fitness Trade-offs: These genetic changes were associated with a measurable reduction in bacterial fitness, suggesting a high metabolic cost for these alternative resistance mechanisms.
+
+Conclusion
+These findings provide a deeper understanding of the molecular mechanisms driving resistance development. This data contributes to optimizing antibiotic usage protocols and helps map the unpredictable nature of evolutionary landscapes under pharmacological stress.
