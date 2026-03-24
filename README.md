@@ -1,9 +1,9 @@
 # Erythromycin-Resistance-Dynamics
 Background
-Antibiotic resistance is an escalating global concern. Understanding the rapid evolutionary responses of bacteria to antibiotic stress is critical for developing effective treatment strategies and minimizing resistance emergence.
+- Antibiotic resistance is an escalating global concern. Understanding the rapid evolutionary responses of bacteria to antibiotic stress is critical for developing effective treatment strategies and minimizing resistance emergence.
 
 Objective
-This study explores the evolutionary trajectory of Vibrio natriegens under continuous pressure from the macrolide antibiotic Erythromycin. We specifically investigated whether resistance would develop through mutations in the msrA gene.
+- This study explores the evolutionary trajectory of Vibrio natriegens under continuous pressure from the macrolide antibiotic Erythromycin. We specifically investigated whether resistance would develop through mutations in the msrA gene.
 
 Methodology
 - System: Utilized a chemostat system to maintain controlled environmental conditions.
@@ -16,4 +16,4 @@ Key Findings
 - Fitness Trade-offs: These genetic changes were associated with a measurable reduction in bacterial fitness, suggesting a high metabolic cost for these alternative resistance mechanisms.
 
 Conclusion
-These findings provide a deeper understanding of the molecular mechanisms driving resistance development. This data contributes to optimizing antibiotic usage protocols and helps map the unpredictable nature of evolutionary landscapes under pharmacological stress.
+- These findings provide a deeper understanding of the molecular mechanisms driving resistance development. This data contributes to optimizing antibiotic usage protocols and helps map the unpredictable nature of evolutionary landscapes under pharmacological stress.
