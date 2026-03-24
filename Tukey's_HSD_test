@@ -1,0 +1,15 @@
+from statsmodels.stats.multicomp import pairwise_tukeyhsd
+import numpy as np
+
+# Combine AUC values for Broth only
+broth_auc_combined = np.concatenate([wt_broth_auc, mut1_broth_auc, mut2_broth_auc])
+
+# Create corresponding labels
+broth_labels = ["WT"] * len(wt_broth_auc) + ["Mutant1"] * len(mut1_broth_auc) + ["Mutant2"] * len(mut2_broth_auc)
+
+# Perform Tukey's HSD test
+tukey_results_broth = pairwise_tukeyhsd(endog=broth_auc_combined, groups=broth_labels, alpha=0.05)
+
+# Print the results
+print("--- Tukey's HSD Post-hoc Test Results for Broth only condition ---")
+print(tukey_results_broth)
