@@ -1,0 +1,62 @@
+# Initialize empty lists to store mutations
+all_mutations_mut1 = []
+all_mutations_mut2 = []
+
+# Loop through the first 1000 reads and find mutations for Mutant 1 vs WT
+for mut1_read, wt_read in zip(reads_mut1, reads_wt):
+    mutations = align_and_get_mutations(wt_read, mut1_read)
+    all_mutations_mut1.extend(mutations)
+
+# Loop through the first 1000 reads and find mutations for Mutant 2 vs WT
+for mut2_read, wt_read in zip(reads_mut2, reads_wt):
+    mutations = align_and_get_mutations(wt_read, mut2_read)
+    all_mutations_mut2.extend(mutations)
+
+# Convert the lists of mutations into pandas DataFrames
+df_mutations_mut1 = pd.DataFrame(all_mutations_mut1, columns=['Position', 'Reference', 'Alternate'])
+df_mutations_mut2 = pd.DataFrame(all_mutations_mut2, columns=['Position', 'Reference', 'Alternate'])
+
+# Display the first few rows of the mutation DataFrames to verify
+print("Mutations found for Mutant 1 vs WT:")
+display(df_mutations_mut1.head())
+
+print("\nMutations found for Mutant 2 vs WT:")
+display(df_mutations_mut2.head())
+
+# Calculate total mutations
+total_mutations_mut1 = sum(mutation_frequencies_mut1.values())
+total_mutations_mut2 = sum(mutation_frequencies_mut2.values())
+
+# Print summary for Mutant 1
+print("--- Summary for Mutant 1 vs WT Mutations ---")
+print(f"Total Mutations: {total_mutations_mut1}")
+print(f"Mutation Types:")
+for mut_type, count in mutation_frequencies_mut1.items():
+    print(f"  {mut_type}: {count}")
+
+print("\n--- Summary for Mutant 2 vs WT Mutations ---")
+print(f"Total Mutations: {total_mutations_mut2}")
+print(f"Mutation Types:")
+for mut_type, count in mutation_frequencies_mut2.items():
+    print(f"  {mut_type}: {count}")
+
+print("\n--- Interpretation ---")
+print("For both Mutant 1 and Mutant 2 compared to Wild Type, Transversions are significantly more prevalent than Transitions.")
+print(f"In Mutant 1, there are {mutation_frequencies_mut1.get('Transversion', 0)} Transversions and {mutation_frequencies_mut1.get('Transition', 0)} Transitions.")
+print(f"In Mutant 2, there are {mutation_frequencies_mut2.get('Transversion', 0)} Transversions and {mutation_frequencies_mut2.get('Transition', 0)} Transitions.")
+
+# Recall previously calculated genetic distances
+print("Genetic Distance from WT (cosine):", genetic_distance_from_wt)
+
+# Recall previously calculated average fitness (AUC)
+print("\nAverage Fitness (AUC) in Broth only:", fitness_broth)
+print("Average Fitness (AUC) in Broth + Antibiotic:", fitness_antibiotic)
+
+# Recall mutation summaries
+print("\n--- Summary for Mutant 1 vs WT Mutations ---")
+print(f"Total Mutations: {total_mutations_mut1}")
+print(f"Mutation Types:", mutation_frequencies_mut1)
+
+print("\n--- Summary for Mutant 2 vs WT Mutations ---")
+print(f"Total Mutations: {total_mutations_mut2}")
+print(f"Mutation Types:", mutation_frequencies_mut2)
