@@ -15,6 +15,9 @@
 - Alternative Pathways: Significant alterations were detected in the atpD gene and a gene encoding an XRE family transcriptional regulator.
 - Fitness Trade-offs: These genetic changes were associated with a measurable reduction in bacterial fitness, suggesting a high metabolic cost for these alternative resistance mechanisms.
 
+**Extension: Multi-Species Genomic Classifier**
+- Cross-Species Pattern Recognition: Developed a standalone Machine Learning model to accurately classify DNA sequences between Human, Dog, and Chimpanzee genomes.
+
 **Conclusion**
 - These findings provide a deeper understanding of the molecular mechanisms driving resistance development. This data contributes to optimizing antibiotic usage protocols and helps map the unpredictable nature of evolutionary landscapes under pharmacological stress.
 
